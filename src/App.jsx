@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3002';
+// ✅ Use ONLY deployed backend URL via Vite env
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 function App() {
   const [barcode, setBarcode] = useState('');
@@ -20,13 +21,13 @@ function App() {
     try {
       const response = await axios.post(`${API_URL}/analyze-food`, {
         barcode: barcode.trim() || undefined,
-        ingredients: ingredients.trim() || undefined
+        ingredients: ingredients.trim() || undefined,
       });
 
       if (response.data.requires_clarification) {
         setResult({
           clarification: true,
-          message: response.data.clarification_message
+          message: response.data.clarification_message,
         });
       } else {
         setResult({
@@ -34,11 +35,15 @@ function App() {
           product_name: response.data.product_name,
           safety_status: response.data.safety_status,
           harmful_ingredients: response.data.harmful_ingredients,
-          explanation: response.data.explanation
+          explanation: response.data.explanation,
         });
       }
     } catch (err) {
-      setError(err.response?.data?.error || err.message || 'An error occurred');
+      setError(
+        err.response?.data?.error ||
+        err.message ||
+        'An error occurred while analyzing food'
+      );
     } finally {
       setLoading(false);
     }
@@ -47,26 +52,26 @@ function App() {
   const getStatusColor = (status) => {
     switch (status) {
       case 'SAFE':
-        return '#10b981'; // green
+        return '#10b981';
       case 'CAUTION':
-        return '#f59e0b'; // amber
+        return '#f59e0b';
       case 'UNSAFE':
-        return '#ef4444'; // red
+        return '#ef4444';
       default:
-        return '#6b7280'; // gray
+        return '#6b7280';
     }
   };
 
   const getStatusBgColor = (status) => {
     switch (status) {
       case 'SAFE':
-        return '#d1fae5'; // light green
+        return '#d1fae5';
       case 'CAUTION':
-        return '#fef3c7'; // light amber
+        return '#fef3c7';
       case 'UNSAFE':
-        return '#fee2e2'; // light red
+        return '#fee2e2';
       default:
-        return '#f3f4f6'; // light gray
+        return '#f3f4f6';
     }
   };
 
@@ -97,7 +102,7 @@ function App() {
               id="ingredients"
               value={ingredients}
               onChange={(e) => setIngredients(e.target.value)}
-              placeholder="Enter ingredients separated by commas, e.g., Water, Sugar, Salt, Natural Flavors..."
+              placeholder="Enter ingredients separated by commas"
               rows="5"
               className="textarea"
               required={!barcode}
@@ -134,12 +139,13 @@ function App() {
                     <h2>{result.product_name}</h2>
                   </div>
                 )}
+
                 <div
                   className="status-badge"
                   style={{
                     backgroundColor: getStatusBgColor(result.safety_status),
                     color: getStatusColor(result.safety_status),
-                    borderColor: getStatusColor(result.safety_status)
+                    borderColor: getStatusColor(result.safety_status),
                   }}
                 >
                   <strong>
@@ -148,10 +154,12 @@ function App() {
                     {result.safety_status === 'UNSAFE' && '✗ UNSAFE'}
                   </strong>
                 </div>
+
                 <div className="explanation">
                   <p>{result.explanation}</p>
                 </div>
-                {result.harmful_ingredients && result.harmful_ingredients.length > 0 && (
+
+                {result.harmful_ingredients?.length > 0 && (
                   <div className="harmful-ingredients">
                     <h4>Harmful Ingredients Detected:</h4>
                     <ul>
