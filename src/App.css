@@ -1,0 +1,167 @@
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  max-width: 700px;
+  width: 100%;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  color: #1f2937;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.header p {
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+.form {
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #374151;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.button {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.result {
+  margin-top: 30px;
+  padding: 24px;
+  border-radius: 8px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+}
+
+.result.error {
+  background: #fee2e2;
+  border-color: #ef4444;
+  color: #991b1b;
+}
+
+.clarification {
+  text-align: center;
+}
+
+.clarification h3 {
+  color: #f59e0b;
+  margin-bottom: 12px;
+}
+
+.product-name {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.product-name h2 {
+  color: #1f2937;
+  font-size: 1.5rem;
+}
+
+.status-badge {
+  text-align: center;
+  padding: 16px;
+  border-radius: 8px;
+  border: 2px solid;
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+}
+
+.explanation {
+  margin-bottom: 20px;
+}
+
+.explanation p {
+  color: #374151;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.harmful-ingredients {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.harmful-ingredients h4 {
+  color: #991b1b;
+  margin-bottom: 12px;
+  font-size: 1rem;
+}
+
+.harmful-ingredients ul {
+  list-style-position: inside;
+  color: #374151;
+}
+
+.harmful-ingredients li {
+  margin-bottom: 6px;
+  padding-left: 8px;
+}
